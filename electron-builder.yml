@@ -10,6 +10,7 @@ files:
   - main.js
   - preload.js
   - src/**/*
+  - resources/icon.png
   - package.json
   - '!**/*.map'
 
@@ -31,14 +32,22 @@ win:
   artifactName: ${productName}-${version}-${arch}.${ext}
 
 nsis:
-  oneClick: false
+  # Un clic: sin "siguiente, siguiente". Por usuario, así instalar y actualizar nunca pide administrador
+  oneClick: true
   perMachine: false
-  allowToChangeInstallationDirectory: true
   createDesktopShortcut: always
   createStartMenuShortcut: true
   shortcutName: PoxiClicker
   artifactName: ${productName}-Setup-${version}.${ext}
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
   installerLanguages: [en_US, es_ES]
 
 portable:
   artifactName: ${productName}-Portable-${version}.${ext}
+
+# Actualizaciones desde GitHub Releases (genera latest.yml + .blockmap)
+publish:
+  provider: github
+  owner: PoxiiTV
+  repo: PoxiClicker
