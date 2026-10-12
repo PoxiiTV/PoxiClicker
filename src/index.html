@@ -11,100 +11,107 @@
     <img src="../resources/icon.png" alt="" class="logo" />
     <span class="brand">PoxiClicker</span>
     <span class="drag"></span>
-    <button class="tb" id="theme" title="Tema claro/oscuro" aria-label="Cambiar tema">
+    <button class="tb" id="theme" data-i18n-title="tb.theme" data-i18n-aria="tb.theme">
       <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
-    <button class="tb" id="cfg" title="Ajustes" aria-label="Ajustes" aria-expanded="false">
+    <button class="tb" id="cfg" data-i18n-title="tb.cfg" data-i18n-aria="tb.cfg" aria-expanded="false">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
     </button>
-    <button class="tb" id="pin" title="Siempre visible" aria-label="Siempre visible">
+    <button class="tb" id="pin" data-i18n-title="tb.pin" data-i18n-aria="tb.pin">
       <svg viewBox="0 0 24 24"><path d="M12 17v5M9 3h6l-1 7 3 3v2H7v-2l3-3z"/></svg>
     </button>
-    <button class="tb" id="min" title="Minimizar" aria-label="Minimizar"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
-    <button class="tb close" id="close" title="Cerrar" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="tb" id="min" data-i18n-title="tb.min" data-i18n-aria="tb.min"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+    <button class="tb close" id="close" data-i18n-title="tb.close" data-i18n-aria="tb.close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </header>
 
   <div class="menu" id="menu" hidden>
-    <div class="mrow"><span>Modo</span>
-      <div class="seg" id="level" role="radiogroup" aria-label="Modo de la interfaz">
-        <button data-v="0" title="Lo básico">Simple</button><button data-v="1" title="Límites, modo Mantener y perfiles">Avanzado</button>
+    <div class="mrow"><span data-i18n="menu.mode"></span>
+      <div class="seg" id="level" role="radiogroup">
+        <button data-v="0" data-i18n="level.simple" data-i18n-title="level.simple.tip"></button><button data-v="1" data-i18n="level.adv" data-i18n-title="level.adv.tip"></button>
       </div>
     </div>
-    <div class="mrow"><span>Tema</span>
-      <div class="seg" id="themeSel" role="radiogroup" aria-label="Tema">
-        <button data-v="dark">Oscuro</button><button data-v="light">Claro</button>
+    <div class="mrow"><span data-i18n="menu.theme"></span>
+      <div class="seg" id="themeSel" role="radiogroup">
+        <button data-v="dark" data-i18n="theme.dark"></button><button data-v="light" data-i18n="theme.light"></button>
       </div>
     </div>
-    <div class="mrow"><span>Color</span>
-
-
-      <div class="swatches" id="accents" role="radiogroup" aria-label="Color">
-        <button data-a="blue" title="Azul"></button><button data-a="emerald" title="Verde"></button>
-        <button data-a="violet" title="Violeta"></button><button data-a="pink" title="Rosa"></button>
-        <button data-a="amber" title="Naranja"></button><button data-a="red" title="Rojo"></button>
+    <div class="mrow"><span data-i18n="menu.color"></span>
+      <div class="swatches" id="accents" role="radiogroup">
+        <button data-a="blue" data-i18n-title="color.blue"></button><button data-a="emerald" data-i18n-title="color.emerald"></button>
+        <button data-a="violet" data-i18n-title="color.violet"></button><button data-a="pink" data-i18n-title="color.pink"></button>
+        <button data-a="amber" data-i18n-title="color.amber"></button><button data-a="red" data-i18n-title="color.red"></button>
       </div>
     </div>
+    <div class="mrow"><span data-i18n="menu.lang"></span>
+      <div class="seg" id="langSel" role="radiogroup">
+        <button data-v="es">Español</button><button data-v="en">English</button>
+      </div>
+    </div>
+    <hr />
+    <label class="mrow"><span data-i18n="menu.tray"></span><input type="checkbox" class="sw" id="optTray" /></label>
+    <label class="mrow"><span data-i18n="menu.startup"></span><input type="checkbox" class="sw" id="optStartup" /></label>
+    <label class="mrow"><span data-i18n="menu.sound"></span><input type="checkbox" class="sw" id="optSound" /></label>
   </div>
 
   <main>
     <section class="card hero">
       <div class="info">
-        <div class="counter"><b id="count">0</b><span>clics</span></div>
+        <div class="counter"><b id="count">0</b><span data-i18n="hero.clicks"></span></div>
       </div>
-      <div class="seg mode adv" id="mode" role="radiogroup" aria-label="Modo">
-        <button data-v="0" title="Pulsas el atajo para empezar y otra vez para parar">Alternar</button>
-        <button data-v="1" title="Clica solo mientras mantienes pulsado el atajo">Mantener</button>
+      <div class="seg mode adv" id="mode" role="radiogroup">
+        <button data-v="0" data-i18n="mode.toggle" data-i18n-title="mode.toggle.tip"></button>
+        <button data-v="1" data-i18n="mode.hold" data-i18n-title="mode.hold.tip"></button>
       </div>
-      <button id="toggle" class="big" disabled><span id="toggleLabel">Iniciando…</span></button>
-      <button class="key" id="hotkey" title="Cambiar atajo">Atajo <kbd id="toggleKey">F6</kbd></button>
+      <button id="toggle" class="big" disabled><span id="toggleLabel"></span></button>
+      <button class="key" id="hotkey" data-i18n-title="hero.hotkey.tip"><span data-i18n="hero.hotkey"></span> <kbd id="toggleKey">F6</kbd></button>
     </section>
 
     <section class="card">
-      <div class="head"><h2>Velocidad</h2><small id="interval"></small></div>
+      <div class="head"><h2 data-i18n="card.speed"></h2><small id="interval"></small></div>
       <div class="row">
-        <span class="lbl">Clics por segundo</span>
+        <span class="lbl" data-i18n="lbl.cps"></span>
         <input type="range" id="cpsRange" min="1" max="100" step="1" />
         <span class="tail"><input type="number" id="cps" min="0.1" max="500" step="0.5" /><em>CPS</em></span>
       </div>
       <div class="row">
-        <span class="lbl">Aleatoriedad</span>
+        <span class="lbl" data-i18n="lbl.random"></span>
         <input type="range" id="random" min="0" max="50" step="1" /><output id="randomOut">0%</output>
       </div>
     </section>
 
     <div class="pair">
       <section class="card">
-        <h2>Clic</h2>
+        <h2 data-i18n="card.click"></h2>
         <div class="seg" id="button" role="radiogroup">
-          <button data-v="0">Izquierdo</button><button data-v="1">Derecho</button><button data-v="2">Central</button>
+          <button data-v="0" data-i18n="btn.left"></button><button data-v="1" data-i18n="btn.right"></button><button data-v="2" data-i18n="btn.middle"></button>
         </div>
-        <div class="seg" id="double" role="radiogroup"><button data-v="0">Simple</button><button data-v="1">Doble</button></div>
+        <div class="seg" id="double" role="radiogroup"><button data-v="0" data-i18n="type.single"></button><button data-v="1" data-i18n="type.double"></button></div>
       </section>
       <section class="card">
-        <h2>Posición</h2>
-        <div class="seg" id="fixed" role="radiogroup"><button data-v="0">En el cursor</button><button data-v="1">Fija</button></div>
+        <h2 data-i18n="card.position"></h2>
+        <div class="seg" id="fixed" role="radiogroup"><button data-v="0" data-i18n="pos.cursor"></button><button data-v="1" data-i18n="pos.fixed"></button></div>
         <div class="row" id="posRow">
           <em>X</em><input type="number" id="x" /><em>Y</em><input type="number" id="y" />
-          <button class="ghost" id="pick" title="Coloca el ratón donde quieras: se captura a los 3 s">Capturar</button>
+          <button class="ghost" id="pick" data-i18n="pos.capture" data-i18n-title="pos.capture.tip"></button>
         </div>
       </section>
     </div>
 
     <div class="pair adv">
       <section class="card">
-        <h2>Límites</h2>
-        <div class="row"><span class="lbl">Parar tras</span><input type="number" id="limit" min="0" step="1" /><em>clics (0 = ∞)</em></div>
-        <div class="row"><span class="lbl">Empezar tras</span><input type="number" id="delay" min="0" max="60" step="0.5" /><em>s</em></div>
+        <h2 data-i18n="card.limits"></h2>
+        <div class="row"><span class="lbl" data-i18n="lim.stop"></span><input type="number" id="limit" min="0" step="1" /><em data-i18n="lim.clicks"></em></div>
+        <div class="row"><span class="lbl" data-i18n="lim.start"></span><input type="number" id="delay" min="0" max="60" step="0.5" /><em data-i18n="lim.s"></em></div>
       </section>
       <section class="card adv">
-        <h2>Perfiles</h2>
+        <h2 data-i18n="card.profiles"></h2>
         <div class="row">
-          <select id="profile" aria-label="Perfil"></select>
-          <button class="ghost icon" id="delProfile" title="Borrar perfil" aria-label="Borrar perfil"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          <select id="profile"></select>
+          <button class="ghost icon" id="delProfile" data-i18n-title="profile.delete" data-i18n-aria="profile.delete"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
         </div>
         <div class="row">
-          <input type="text" id="profileName" maxlength="24" placeholder="Nombre del perfil" />
-          <button class="ghost" id="saveProfile">Guardar</button>
+          <input type="text" id="profileName" maxlength="24" data-i18n-ph="profile.name" />
+          <button class="ghost" id="saveProfile" data-i18n="profile.save"></button>
         </div>
       </section>
     </div>
@@ -116,11 +123,12 @@
       <p id="updText"></p>
       <div class="bar" id="updBar" hidden><i id="updFill"></i></div>
       <div class="actions" id="updActions">
-        <button class="ghost" id="updLater">Ahora no</button>
-        <button class="big small" id="updYes">Actualizar</button>
+        <button class="ghost" id="updLater" data-i18n="upd.later"></button>
+        <button class="big small" id="updYes"></button>
       </div>
     </div>
   </div>
+  <script src="i18n.js"></script>
   <script src="renderer.js"></script>
 </body>
 </html>

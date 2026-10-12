@@ -14,10 +14,10 @@ files:
   - package.json
   - '!**/*.map'
 
-# powershell no puede leer dentro del asar: el ayudante de clics va fuera
+# El ayudante de clics es un .exe: no puede ejecutarse desde dentro del asar, va fuera
 extraResources:
-  - from: clicker.ps1
-    to: clicker.ps1
+  - from: helper/clicker.exe
+    to: clicker.exe
 
 asar: true
 

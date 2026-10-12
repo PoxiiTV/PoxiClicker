@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.0.1
+
+### 🇪🇸 Novedades
+- **Ayudante de clics nativo**: arranca al instante (antes tardaba ~1,5 s), usa `SendInput` y da menos falsos positivos con antivirus
+- **CPS reales** medidos y mostrados junto a la velocidad mientras funciona
+- **Modo Mantener**: la tecla del atajo ya no le llega al programa que tengas delante
+- **Bandeja del sistema** (opcional): minimizar la esconde junto al reloj, con menú
+- **Iniciar con Windows** (opcional), minimizado
+- **Sonidos** al activar y parar (se pueden desactivar)
+- **Español e inglés**, con el idioma del PC por defecto
+- Nuevo panel de **Ajustes** con interruptores para todo lo anterior
+
+### 🇬🇧 What's new
+- **Native click helper**: starts instantly (it used to take ~1.5 s), uses `SendInput` and triggers fewer antivirus false positives
+- **Actual CPS** measured and shown next to the speed while running
+- **Hold mode**: the hotkey no longer reaches the program in front of you
+- **System tray** (optional): minimizing hides it next to the clock, with a menu
+- **Start with Windows** (optional), minimized
+- **Sounds** on start and stop (can be turned off)
+- **Spanish and English**, using the PC language by default
+- New **Settings** panel with switches for all of the above
+
 ## 1.0.0
 
 ### 🇪🇸 Primera versión

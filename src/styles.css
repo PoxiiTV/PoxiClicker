@@ -187,3 +187,12 @@ input[type='text']::placeholder { color: var(--muted); font-weight: 500; }
 .swatches button { flex: none; aspect-ratio: 1; }
 .menu .swatches { width: 160px; justify-content: space-between; padding: 0 2px; }
 .menu .swatches button { width: 20px; height: 20px; }
+
+/* Opciones del panel de ajustes: interruptores */
+.menu { width: 290px; }
+.menu hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
+label.mrow { cursor: pointer; }
+.sw { -webkit-appearance: none; appearance: none; flex: none; position: relative; width: 36px; height: 20px; border-radius: 20px; background: var(--surface-3); cursor: pointer; transition: background 0.15s; }
+.sw::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); transition: transform 0.18s var(--ease-out); }
+.sw:checked { background: var(--gradient); }
+.sw:checked::after { transform: translateX(16px); }

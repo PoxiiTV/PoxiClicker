@@ -1,13 +1,15 @@
 {
   "name": "poxiclicker",
   "productName": "PoxiClicker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Autoclicker completo y bonito: CPS, botones, doble clic, aleatoriedad, límite, posición fija y atajo global",
   "author": "Poxi",
   "main": "main.js",
   "private": true,
   "scripts": {
+    "prestart": "node scripts/build-helper.js",
     "start": "electron .",
+    "predist": "node scripts/build-helper.js",
     "dist": "electron-builder --win --publish never"
   },
   "dependencies": {

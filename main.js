@@ -1,10 +1,10 @@
-const { app, BrowserWindow, globalShortcut, ipcMain, nativeImage, shell } = require('electron')
+const { app, BrowserWindow, globalShortcut, ipcMain, nativeImage, shell, Tray, Menu } = require('electron')
 const { spawn } = require('child_process')
 const path = require('path')
 
 const ICON = path.join(__dirname, 'resources', 'icon.png')
-// Instalado: el .ps1 va en resources/ (fuera del asar). En desarrollo, en la raíz
-const HELPER = app.isPackaged ? path.join(process.resourcesPath, 'clicker.ps1') : path.join(__dirname, 'clicker.ps1')
+// Instalado: el ayudante va en resources/ (fuera del asar). En desarrollo, en helper/ (lo compila scripts/build-helper.js)
+const HELPER = app.isPackaged ? path.join(process.resourcesPath, 'clicker.exe') : path.join(__dirname, 'helper', 'clicker.exe')
 
 let win = null
 let helper = null
@@ -12,26 +12,29 @@ let hotkey = null
 let posWaiter = null
 let heldAcc = null // atajo que se libera mientras el modo "mantener" está armado
 let updater = null
+let tray = null
+let startHidden = process.argv.includes('--hidden') // lo pone el inicio con Windows
+let prefs = { tray: false, startup: false, running: false, labels: {} }
 
 const RELEASES = 'https://github.com/PoxiiTV/PoxiClicker/releases/latest'
 const PORTABLE = !!process.env.PORTABLE_EXECUTABLE_FILE
 
 if (!app.requestSingleInstanceLock()) app.quit()
-app.on('second-instance', () => {
-  if (!win) return
-  if (win.isMinimized()) win.restore()
-  win.focus()
-})
+app.on('second-instance', () => showWindow())
 
 function send(channel, data) {
   if (win && !win.isDestroyed()) win.webContents.send(channel, data)
 }
 
+function showWindow() {
+  if (!win) return
+  if (win.isMinimized()) win.restore()
+  win.show()
+  win.focus()
+}
+
 function startHelper() {
-  helper = spawn('powershell.exe', ['-NoProfile', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-File', HELPER], {
-    windowsHide: true,
-    stdio: ['pipe', 'pipe', 'ignore']
-  })
+  helper = spawn(HELPER, [], { windowsHide: true, stdio: ['pipe', 'pipe', 'ignore'] })
   let buf = ''
   helper.stdout.on('data', (d) => {
     buf += d
@@ -42,6 +45,7 @@ function startHelper() {
       if (line === 'ready') send('helper', { ready: true })
       else if (line === 'S') send('helper', { stopped: true })
       else if (line.startsWith('C ')) send('helper', { count: Number(line.slice(2)) })
+      else if (line.startsWith('R ')) send('helper', { real: Number(line.slice(2)) })
       else if (line.startsWith('P ') && posWaiter) {
         const [x, y] = line.slice(2).split(' ').map(Number)
         posWaiter({ x, y })
@@ -49,6 +53,7 @@ function startHelper() {
       }
     }
   })
+  helper.on('error', () => { helper = null })
   helper.on('exit', () => { helper = null })
   helper.stdin.on('error', () => {})
 }
@@ -82,12 +87,53 @@ function accToKey(acc) {
   return vk && { vk, mods }
 }
 
+// Bandeja del sistema (opcional): clic = mostrar/ocultar, menú = mostrar, iniciar/parar, salir
+function updateTray() {
+  const L = prefs.labels
+  tray.setToolTip('PoxiClicker' + (prefs.running ? ' · ' + (L.active || '') : ''))
+  tray.setContextMenu(Menu.buildFromTemplate([
+    { label: L.show || 'Show', click: showWindow },
+    { label: prefs.running ? L.stop || 'Stop' : L.start || 'Start', click: () => send('toggle') },
+    { type: 'separator' },
+    { label: L.quit || 'Quit', click: () => app.quit() }
+  ]))
+}
+
+function applyPrefs(p) {
+  const text = (v) => String(v || '').slice(0, 40)
+  prefs = {
+    tray: !!p.tray,
+    startup: !!p.startup,
+    running: !!p.running,
+    labels: Object.fromEntries(Object.entries(p.labels || {}).map(([k, v]) => [k, text(v)]))
+  }
+  if (prefs.tray && !tray) {
+    tray = new Tray(nativeImage.createFromPath(ICON).resize({ width: 16, height: 16 }))
+    tray.on('click', () => (win.isVisible() && !win.isMinimized() ? win.hide() : showWindow()))
+  } else if (!prefs.tray && tray) {
+    tray.destroy()
+    tray = null
+    if (!win.isVisible()) showWindow()
+  }
+  if (tray) updateTray()
+  // Iniciar con Windows: solo en la app instalada o portable (en desarrollo no registramos electron.exe)
+  if (app.isPackaged) {
+    app.setLoginItemSettings({ openAtLogin: prefs.startup, path: process.env.PORTABLE_EXECUTABLE_FILE || process.execPath, args: ['--hidden'] })
+  }
+  if (startHidden) {
+    startHidden = false
+    if (prefs.tray) win.hide()
+  }
+}
+
+ipcMain.handle('prefs', (_e, p) => applyPrefs(p || {}))
+
 ipcMain.handle('start', (_e, c) => {
   const cps = Math.min(500, Math.max(0.1, Number(c.cps) || 10))
   const common = [cps, clamp(c.button, 0, 2, 0), c.double ? 1 : 0, clamp(c.random, 0, 90, 0), clamp(c.limit, 0, 1e9, 0),
     c.fixed ? 1 : 0, clamp(c.x, -32768, 32767, 0), clamp(c.y, -32768, 32767, 0), clamp(c.delay, 0, 60000, 0)]
   if (c.mode !== 'hold') return cmd(['start', ...common].join(' ')), true
-  // Mantener: el ayudante vigila la tecla; el atajo global se libera para no alternar a la vez
+  // Mantener: el ayudante vigila la tecla (y no se la deja pasar al programa); el atajo global se libera para no alternar a la vez
   const k = accToKey(hotkey || c.hotkey)
   if (!k) return false
   heldAcc = hotkey
@@ -118,7 +164,11 @@ ipcMain.handle('size', (_e, h) => {
   if (win.getContentSize()[1] !== height) win.setContentSize(600, height)
 })
 ipcMain.handle('pin', (_e, on) => win.setAlwaysOnTop(!!on))
-ipcMain.on('win', (_e, a) => (a === 'min' ? win.minimize() : win.close()))
+ipcMain.on('win', (_e, a) => {
+  if (a === 'close') win.close()
+  else if (prefs.tray) win.hide()
+  else win.minimize()
+})
 
 app.whenReady().then(() => {
   win = new BrowserWindow({
@@ -129,7 +179,14 @@ app.whenReady().then(() => {
   })
   win.setMenuBarVisibility(false)
   win.loadFile(path.join(__dirname, 'src', 'index.html'))
-  win.once('ready-to-show', () => win.show())
+  win.once('ready-to-show', () => {
+    // Arrancado por Windows: sin robar el foco. Si hay bandeja se esconde en cuanto llegan los ajustes
+    if (startHidden) {
+      win.showInactive()
+      win.minimize()
+    } else win.show()
+  })
+  win.on('minimize', () => prefs.tray && win.hide())
   startHelper()
   win.webContents.once('did-finish-load', () => setTimeout(setupUpdater, 1500))
 })
@@ -141,7 +198,10 @@ function setupUpdater() {
   updater = require('electron-updater').autoUpdater
   updater.autoDownload = false
   updater.autoInstallOnAppQuit = false
-  updater.on('update-available', (i) => send('upd', { state: 'available', version: i.version, portable: PORTABLE }))
+  updater.on('update-available', (i) => {
+    showWindow() // si estaba en la bandeja, que el aviso se vea
+    send('upd', { state: 'available', version: i.version, portable: PORTABLE })
+  })
   updater.on('download-progress', (p) => send('upd', { state: 'downloading', percent: Math.round(p.percent) }))
   updater.on('update-downloaded', () => {
     send('upd', { state: 'installing' })
@@ -153,6 +213,7 @@ function setupUpdater() {
 
 app.on('will-quit', () => {
   globalShortcut.unregisterAll()
+  if (tray) tray.destroy()
   if (helper) {
     cmd('quit')
     setTimeout(() => helper && helper.kill(), 300)

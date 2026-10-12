@@ -3,3 +3,4 @@ release/
 dist/
 deploy-hosting/
 *.log
+helper/clicker.exe
