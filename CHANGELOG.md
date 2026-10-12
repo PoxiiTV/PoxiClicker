@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.2
+
+### 🇪🇸 Arreglos
+- **El botón ya no se queda en «Iniciando…»**: el ayudante arrancaba tan rápido que a veces avisaba antes de que la interfaz estuviera lista
+- **Lista de perfiles** con el estilo de la app (antes era el desplegable gris de Windows)
+
+### 🇬🇧 Fixes
+- **The button no longer gets stuck on "Starting…"**: the helper started so fast that it sometimes reported in before the interface was ready
+- **Profile list** now matches the app style (it used to be the plain Windows dropdown)
+
 ## 1.0.1
 
 ### 🇪🇸 Novedades

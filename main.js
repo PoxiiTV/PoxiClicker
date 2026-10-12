@@ -8,6 +8,7 @@ const HELPER = app.isPackaged ? path.join(process.resourcesPath, 'clicker.exe') 
 
 let win = null
 let helper = null
+let helperReady = false
 let hotkey = null
 let posWaiter = null
 let heldAcc = null // atajo que se libera mientras el modo "mantener" está armado
@@ -42,7 +43,7 @@ function startHelper() {
     while ((i = buf.indexOf('\n')) >= 0) {
       const line = buf.slice(0, i).trim()
       buf = buf.slice(i + 1)
-      if (line === 'ready') send('helper', { ready: true })
+      if (line === 'ready') { helperReady = true; send('helper', { ready: true }) }
       else if (line === 'S') send('helper', { stopped: true })
       else if (line.startsWith('C ')) send('helper', { count: Number(line.slice(2)) })
       else if (line.startsWith('R ')) send('helper', { real: Number(line.slice(2)) })
@@ -188,6 +189,8 @@ app.whenReady().then(() => {
   })
   win.on('minimize', () => prefs.tray && win.hide())
   startHelper()
+  // si el ayudante arrancó antes que la interfaz, el aviso "ready" se perdió: se repite al cargar
+  win.webContents.on('did-finish-load', () => { if (helperReady) send('helper', { ready: true }) })
   win.webContents.once('did-finish-load', () => setTimeout(setupUpdater, 1500))
 })
 

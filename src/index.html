@@ -106,7 +106,10 @@
       <section class="card adv">
         <h2 data-i18n="card.profiles"></h2>
         <div class="row">
-          <select id="profile"></select>
+          <div class="dd" id="profile">
+            <button type="button" class="dd-btn" id="profileBtn"><span id="profileCur"></span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+            <ul class="dd-list" id="profileList" hidden></ul>
+          </div>
           <button class="ghost icon" id="delProfile" data-i18n-title="profile.delete" data-i18n-aria="profile.delete"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
         </div>
         <div class="row">

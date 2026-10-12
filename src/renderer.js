@@ -97,10 +97,16 @@ function render() {
   $('optTray').checked = !!s.tray
   $('optStartup').checked = !!s.startup
   $('optSound').checked = !!s.sound
-  const sel = $('profile')
-  sel.replaceChildren(new Option(t('profile.none'), ''), ...s.profiles.map((p) => new Option(p.name, p.name)))
-  sel.value = s.profiles.some((p) => p.name === s.profile) ? s.profile : ''
-  $('delProfile').disabled = !sel.value
+  const cur = s.profiles.some((p) => p.name === s.profile) ? s.profile : ''
+  $('profileCur').textContent = cur || t('profile.none')
+  $('profileList').replaceChildren(...[{ name: '', label: t('profile.none') }, ...s.profiles].map((p) => {
+    const li = document.createElement('li')
+    li.textContent = p.label || p.name
+    li.dataset.v = p.name
+    li.classList.toggle('on', p.name === cur)
+    return li
+  }))
+  $('delProfile').disabled = !cur
   $('toggle').classList.toggle('running', running)
   const hold = holdMode()
   $('toggleLabel').textContent = !ready ? t('btn.starting') : running ? t(hold ? 'btn.disarm' : 'btn.stop') : t(hold ? 'btn.arm' : 'btn.start')
@@ -198,8 +204,14 @@ $('close').onclick = () => window.poxi.win('close')
 $('toggle').onclick = toggle
 
 // Perfiles: guardan los ajustes de clic (no el tema ni el color)
-$('profile').onchange = (e) => {
-  const p = s.profiles.find((x) => x.name === e.target.value)
+const closeProfiles = () => ($('profileList').hidden = true)
+$('profileBtn').onclick = (e) => { e.stopPropagation(); $('profileList').hidden = !$('profileList').hidden }
+document.addEventListener('click', closeProfiles)
+document.addEventListener('keydown', (e) => e.key === 'Escape' && closeProfiles())
+$('profileList').onclick = (e) => {
+  const li = e.target.closest('li')
+  if (!li) return
+  const p = s.profiles.find((x) => x.name === li.dataset.v)
   if (running) stop()
   set(p ? { ...p.data, profile: p.name } : { profile: '' })
 }

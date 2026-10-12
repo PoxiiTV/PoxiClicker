@@ -1,7 +1,7 @@
 {
   "name": "poxiclicker",
   "productName": "PoxiClicker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Autoclicker completo y bonito: CPS, botones, doble clic, aleatoriedad, límite, posición fija y atajo global",
   "author": "Poxi",
   "main": "main.js",

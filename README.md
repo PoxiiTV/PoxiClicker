@@ -4,7 +4,7 @@
 
 <br />
 
-![Versión](https://img.shields.io/badge/versión-1.0.1-3fc8ff?style=flat-square&labelColor=0b1a29)
+![Versión](https://img.shields.io/badge/versión-1.0.2-3fc8ff?style=flat-square&labelColor=0b1a29)
 ![Plataforma](https://img.shields.io/badge/Windows-10%20%7C%2011-ffa94d?style=flat-square&labelColor=0b1a29)
 ![Velocidad](https://img.shields.io/badge/hasta-500%20CPS-7cf0a5?style=flat-square&labelColor=0b1a29)
 ![Electron](https://img.shields.io/badge/Electron-44-c084fc?style=flat-square&labelColor=0b1a29)
@@ -46,8 +46,8 @@ Modo **Simple** para lo básico y modo **Avanzado** para los que quieren más.
 
 | Archivo | Para qué |
 |---|---|
-| **[`PoxiClicker-Setup-1.0.1.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.1/PoxiClicker-Setup-1.0.1.exe)** | **Instalador** de un clic (sin «siguiente, siguiente»): crea los accesos y **se actualiza solo** |
-| [`PoxiClicker-Portable-1.0.1.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.1/PoxiClicker-Portable-1.0.1.exe) | **Portable**: se abre tal cual, sin instalar nada |
+| **[`PoxiClicker-Setup-1.0.2.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.2/PoxiClicker-Setup-1.0.2.exe)** | **Instalador** de un clic (sin «siguiente, siguiente»): crea los accesos y **se actualiza solo** |
+| [`PoxiClicker-Portable-1.0.2.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.2/PoxiClicker-Portable-1.0.2.exe) | **Portable**: se abre tal cual, sin instalar nada |
 
 Todas las versiones y sus novedades, en [**Releases**](https://github.com/PoxiiTV/PoxiClicker/releases).
 
@@ -134,8 +134,8 @@ stays steady instead of stuttering.
 
 | File | What for |
 |---|---|
-| **[`PoxiClicker-Setup-1.0.1.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.1/PoxiClicker-Setup-1.0.1.exe)** | One-click **installer** (no «next, next»): creates shortcuts and **updates itself** |
-| [`PoxiClicker-Portable-1.0.1.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.1/PoxiClicker-Portable-1.0.1.exe) | **Portable**: runs as is, nothing to install |
+| **[`PoxiClicker-Setup-1.0.2.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.2/PoxiClicker-Setup-1.0.2.exe)** | One-click **installer** (no «next, next»): creates shortcuts and **updates itself** |
+| [`PoxiClicker-Portable-1.0.2.exe`](https://github.com/PoxiiTV/PoxiClicker/releases/download/v1.0.2/PoxiClicker-Portable-1.0.2.exe) | **Portable**: runs as is, nothing to install |
 
 All versions and release notes live in [**Releases**](https://github.com/PoxiiTV/PoxiClicker/releases).
 
