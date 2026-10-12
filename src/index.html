@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" data-theme="dark" data-accent="blue">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' file:; img-src 'self' data:" />
+  <title>PoxiClicker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="titlebar">
+    <img src="../resources/icon.png" alt="" class="logo" />
+    <span class="brand">PoxiClicker</span>
+    <span class="drag"></span>
+    <button class="tb" id="theme" title="Tema claro/oscuro" aria-label="Cambiar tema">
+      <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <button class="tb" id="pin" title="Siempre visible" aria-label="Siempre visible">
+      <svg viewBox="0 0 24 24"><path d="M12 17v5M9 3h6l-1 7 3 3v2H7v-2l3-3z"/></svg>
+    </button>
+    <button class="tb" id="min" title="Minimizar" aria-label="Minimizar"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+    <button class="tb close" id="close" title="Cerrar" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </header>
+
+  <main>
+    <section class="card hero">
+      <div class="info">
+        <div class="counter"><b id="count">0</b><span>clics</span></div>
+      </div>
+      <button id="toggle" class="big" disabled><span id="toggleLabel">Iniciando…</span></button>
+      <button class="key" id="hotkey" title="Cambiar atajo">Atajo <kbd id="toggleKey">F6</kbd></button>
+    </section>
+
+    <section class="card">
+      <div class="head"><h2>Velocidad</h2><small id="interval"></small></div>
+      <div class="row">
+        <span class="lbl">Clics por segundo</span>
+        <input type="range" id="cpsRange" min="1" max="100" step="1" />
+        <span class="tail"><input type="number" id="cps" min="0.1" max="500" step="0.5" /><em>CPS</em></span>
+      </div>
+      <div class="row">
+        <span class="lbl">Aleatoriedad</span>
+        <input type="range" id="random" min="0" max="50" step="1" /><output id="randomOut">0%</output>
+      </div>
+    </section>
+
+    <div class="pair">
+      <section class="card">
+        <h2>Clic</h2>
+        <div class="seg" id="button" role="radiogroup">
+          <button data-v="0">Izquierdo</button><button data-v="1">Derecho</button><button data-v="2">Central</button>
+        </div>
+        <div class="seg" id="double" role="radiogroup"><button data-v="0">Simple</button><button data-v="1">Doble</button></div>
+      </section>
+      <section class="card">
+        <h2>Posición</h2>
+        <div class="seg" id="fixed" role="radiogroup"><button data-v="0">En el cursor</button><button data-v="1">Fija</button></div>
+        <div class="row" id="posRow">
+          <em>X</em><input type="number" id="x" /><em>Y</em><input type="number" id="y" />
+          <button class="ghost" id="pick" title="Coloca el ratón donde quieras: se captura a los 3 s">Capturar</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="pair">
+      <section class="card">
+        <h2>Límites</h2>
+        <div class="row"><span class="lbl">Parar tras</span><input type="number" id="limit" min="0" step="1" /><em>clics (0 = ∞)</em></div>
+        <div class="row"><span class="lbl">Empezar tras</span><input type="number" id="delay" min="0" max="60" step="0.5" /><em>s</em></div>
+      </section>
+      <section class="card">
+        <h2>Color</h2>
+        <div class="swatches" id="accents" role="radiogroup" aria-label="Color">
+          <button data-a="blue" title="Azul"></button><button data-a="emerald" title="Verde"></button>
+          <button data-a="violet" title="Violeta"></button><button data-a="pink" title="Rosa"></button>
+          <button data-a="amber" title="Naranja"></button><button data-a="red" title="Rojo"></button>
+        </div>
+        
+      </section>
+    </div>
+  </main>
+  <script src="renderer.js"></script>
+</body>
+</html>

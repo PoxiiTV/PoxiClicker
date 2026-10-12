@@ -1,0 +1,44 @@
+appId: com.poxi.poxiclicker
+productName: PoxiClicker
+copyright: Copyright © 2026 Poxi
+directories:
+  output: release
+  buildResources: resources
+
+# Solo lo necesario: el filtro evita que se cuele release/, docs o ficheros de desarrollo
+files:
+  - main.js
+  - preload.js
+  - src/**/*
+  - package.json
+  - '!**/*.map'
+
+# powershell no puede leer dentro del asar: el ayudante de clics va fuera
+extraResources:
+  - from: clicker.ps1
+    to: clicker.ps1
+
+asar: true
+
+win:
+  icon: resources/icon.png
+  requestedExecutionLevel: asInvoker
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: PoxiClicker
+  artifactName: ${productName}-Setup-${version}.${ext}
+  installerLanguages: [en_US, es_ES]
+
+portable:
+  artifactName: ${productName}-Portable-${version}.${ext}
